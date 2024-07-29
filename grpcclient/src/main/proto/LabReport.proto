@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_multiple_files =  true;
+
+package com.test.grpcserver;
+
+message LabReport {
+  string test_type = 1;
+  string sample_type = 2;
+}
+
+message SampleRequest {
+  LabReport labReport = 1;
+}
+
+message LabReportResponse {
+  string result = 1;
+}
+
+message LabReportResponseManyTimes {
+  string result = 1;
+}
+
+service LabReportService {
+
+  // Unary
+  rpc testSample(SampleRequest) returns (LabReportResponse);
+
+  // Streaming server
+  rpc testSampleManyTimes(SampleRequest) returns (stream LabReportResponseManyTimes);
+
+}
